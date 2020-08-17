@@ -1,5 +1,5 @@
 {
-    "name": "hareku/laravel-user-blockable",
+    "name": "barisdemirhan/laravel-user-blockable",
     "description": "Laravel 5 user block system",
     "keywords": ["laravel", "block"],
     "license": "MIT",
@@ -13,7 +13,7 @@
         "php": ">=7.0",
         "illuminate/database": ">=5.4",
         "illuminate/support": ">=5.4",
-        "nesbot/carbon": "~2.38.0"
+        "nesbot/carbon": ">=2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~5.7"
