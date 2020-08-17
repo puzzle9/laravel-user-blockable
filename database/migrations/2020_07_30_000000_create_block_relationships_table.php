@@ -18,7 +18,8 @@ class CreateBlockRelationshipsTable extends Migration
             $table->unsignedBigInteger('blocker_id');
             $table->unsignedBigInteger('blocked_by_id');
             $table->timestamp('blocked_at');
-
+        });
+        Schema::table($this->relationshipsTableName(), function (Blueprint $table) {
             $key = $this->userKeyName();
             $tableName = $this->usersTableName();
 
