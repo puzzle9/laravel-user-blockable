@@ -14,12 +14,10 @@ class CreateBlockRelationshipsTable extends Migration
     public function up()
     {
         Schema::create($this->relationshipsTableName(), function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('blocker_id');
-            $table->unsignedInteger('blocked_by_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('blocker_id');
+            $table->unsignedBigInteger('blocked_by_id');
             $table->timestamp('blocked_at');
-
-            $table->unique(['blocker_id', 'blocked_by_id']);
 
             $key = $this->userKeyName();
             $tableName = $this->usersTableName();
@@ -27,12 +25,12 @@ class CreateBlockRelationshipsTable extends Migration
             $table->foreign('blocker_id')
                 ->references($key)
                 ->on($tableName)
-                ->onDelete('cascade');
+                ->onDelete('set null');
 
             $table->foreign('blocked_by_id')
                 ->references($key)
                 ->on($tableName)
-                ->onDelete('cascade');
+                ->onDelete('set null');
         });
     }
 
