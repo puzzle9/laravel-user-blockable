@@ -31,11 +31,11 @@ trait Blockable
     public function blockerUsers(): BelongsToMany
     {
         return $this->belongsToMany(
-                config('blockable.user'),
-                config('blockable.table_name'),
-                'blocked_by_id',
-                'blocker_id'
-            )
+            config('blockable.user'),
+            config('blockable.table_name'),
+            'blocked_by_id',
+            'blocker_id'
+        )
             ->withPivot('blocked_at');
     }
 
@@ -45,23 +45,23 @@ trait Blockable
     public function blockingUsers(): BelongsToMany
     {
         return $this->belongsToMany(
-                config('blockable.user'),
-                config('blockable.table_name'),
-                'blocker_id',
-                'blocked_by_id'
-            )
+            config('blockable.user'),
+            config('blockable.table_name'),
+            'blocker_id',
+            'blocked_by_id'
+        )
             ->withPivot('blocked_at');
     }
 
     /**
      * Block.
      *
-     * @param  array|int  $ids
+     * @param array|int $ids
      * @return array
      */
     public function block($ids): array
     {
-        $ids = $this->mergeBlcokedAt((array) $ids);
+        $ids = $this->mergeBlcokedAt((array)$ids);
 
         return $this->blockingUsers()->syncWithoutDetaching($ids);
     }
@@ -69,12 +69,12 @@ trait Blockable
     /**
      * Add blockers.
      *
-     * @param  array|int  $ids
+     * @param array|int $ids
      * @return array
      */
     public function addBlockers($ids): array
     {
-        $ids = $this->mergeBlcokedAt((array) $ids);
+        $ids = $this->mergeBlcokedAt((array)$ids);
 
         return $this->blockerUsers()->syncWithoutDetaching($ids);
     }
@@ -82,7 +82,7 @@ trait Blockable
     /**
      * Unblock.
      *
-     * @param  mixed  $ids
+     * @param mixed $ids
      * @return int
      */
     public function unblock($ids): int
@@ -93,13 +93,13 @@ trait Blockable
     /**
      * Merge blocked_at to array for relationships table.
      *
-     * @param  array  $ids
+     * @param array $ids
      * @return array
      */
     private function mergeBlcokedAt(array $ids): array
     {
         $mergedIds = [];
-        $blockedAt = new Carbon;
+        $blockedAt = Carbon::now();
 
         foreach ($ids as $id) {
             $mergedIds[$id] = ['blocked_at' => $blockedAt];
@@ -111,7 +111,7 @@ trait Blockable
     /**
      * Check if it is blocking.
      *
-     * @param  array|int  $id
+     * @param array|int $id
      * @return bool
      */
     public function isBlocking($id): bool
@@ -126,7 +126,7 @@ trait Blockable
     /**
      * Check if it is being blocked.
      *
-     * @param  array|int  $id
+     * @param array|int $id
      * @return bool
      */
     public function isBlockedBy($id): bool
@@ -141,7 +141,7 @@ trait Blockable
     /**
      * Check if it is mutual block.
      *
-     * @param  array|int  $id
+     * @param array|int $id
      * @return bool
      */
     public function isMutualBlock($id): bool
@@ -152,12 +152,12 @@ trait Blockable
     /**
      * Get blocker user IDs.
      *
-     * @param  bool  $collection
+     * @param bool $collection
      * @return array|\Illuminate\Support\Collection
      */
     public function blockerIds(bool $collection = false)
     {
-        $ids = $this->blockerUsers()->pluck($this->getTable().'.id');
+        $ids = $this->blockerUsers()->pluck($this->getTable() . '.id');
 
         if ($collection) {
             return $ids;
@@ -169,12 +169,12 @@ trait Blockable
     /**
      * Get blocking user IDs.
      *
-     * @param  bool  $collection
+     * @param bool $collection
      * @return array|\Illuminate\Support\Collection
      */
     public function blockingIds(bool $collection = false)
     {
-        $ids = $this->blockingUsers()->pluck($this->getTable().'.id');
+        $ids = $this->blockingUsers()->pluck($this->getTable() . '.id');
 
         if ($collection) {
             return $ids;
@@ -186,28 +186,28 @@ trait Blockable
     /**
      * Reject IDs that is not a blocker user from the given array.
      *
-     * @param  array  $ids
+     * @param array $ids
      * @return array
      */
     public function rejectNotBlocker(array $ids): array
     {
         return BlockRelationship::where('blocked_by_id', $this->id)
-                                ->whereIn('blocker_id', $ids)
-                                ->pluck('blocker_id')
-                                ->toArray();
+            ->whereIn('blocker_id', $ids)
+            ->pluck('blocker_id')
+            ->toArray();
     }
 
     /**
      * Reject IDs that is not blocking user from the given array.
      *
-     * @param  array  $ids
+     * @param array $ids
      * @return array
      */
     public function rejectNotBlocking(array $ids): array
     {
         return BlockRelationship::where('blocker_id', $this->id)
-                                ->whereIn('blocked_by_id', $ids)
-                                ->pluck('blocked_by_id')
-                                ->toArray();
+            ->whereIn('blocked_by_id', $ids)
+            ->pluck('blocked_by_id')
+            ->toArray();
     }
 }
