@@ -13,7 +13,7 @@ This package helps you to add user block system to your project.
 
 First, pull in the package through Composer.
 
-Run `composer require hareku/laravel-user-blockable`
+Run `composer require barisdemirhan/laravel-user-blockable`
 
 And then, include the service provider within `config/app.php`.
 
@@ -123,3 +123,6 @@ MIT
 ## Author
 
 hareku (hareku908@gmail.com)
+
+## Fork
+barisdemirhan (barisdemirhn@gmail.com)
