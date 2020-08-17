@@ -15,9 +15,10 @@ class CreateBlockRelationshipsTable extends Migration
     {
         Schema::create($this->relationshipsTableName(), function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('blocker_id');
-            $table->unsignedBigInteger('blocked_by_id');
+            $table->unsignedBigInteger('blocker_id')->nullable();
+            $table->unsignedBigInteger('blocked_by_id')->nullable();
             $table->timestamp('blocked_at');
+            $table->timestamps();
         });
         Schema::table($this->relationshipsTableName(), function (Blueprint $table) {
             $key = $this->userKeyName();
@@ -26,12 +27,12 @@ class CreateBlockRelationshipsTable extends Migration
             $table->foreign('blocker_id')
                 ->references($key)
                 ->on($tableName)
-                ->onDelete('set null');
+                ->onDelete('cascade');
 
             $table->foreign('blocked_by_id')
                 ->references($key)
                 ->on($tableName)
-                ->onDelete('set null');
+                ->onDelete('cascade');
         });
     }
 
