@@ -118,3 +118,12 @@ hareku (hareku908@gmail.com)
 
 ## Fork
 barisdemirhan (barisdemirhn@gmail.com)
+
+# 其他
+讲真
+目前我对这函数 按照这个`被`字关系 理解不清楚
+
+就是类似于 
+
+a拉黑了b
+b被a拉黑了
