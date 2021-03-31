@@ -1,4 +1,4 @@
-# Laravel 5 User Block System
+# Laravel User Block System
 
 This package helps you to add user block system to your project.
 
@@ -6,22 +6,14 @@ This package helps you to add user block system to your project.
 * Use "ON DELETE CASCADE" in block relationships table.
 
 ## Caution
-- *Support Laravel 5.4~*  
+- *Support Laravel 8.x~*  
 - *Required php >=7.0*
 
 ## Installation
 
 First, pull in the package through Composer.
 
-Run `composer require barisdemirhan/laravel-user-blockable`
-
-And then, include the service provider within `config/app.php`.
-
-```php
-'providers' => [
-    Hareku\LaravelBlockable\BlockableServiceProvider::class,
-];
-```
+Run `composer require puzzle9/laravel-user-blockable`
 
 Publish the config file. (blockable.php)
 

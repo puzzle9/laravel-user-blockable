@@ -5,7 +5,7 @@ return [
     /**
      * User model
      */
-    'user' => App\User::class,
+    'user' => App\Models\User::class,
 
     /**
      * Block relationships table name

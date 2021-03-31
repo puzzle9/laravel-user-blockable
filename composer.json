@@ -1,8 +1,9 @@
 {
-  "name": "barisdemirhan/laravel-user-blockable",
-  "description": "Laravel 5 user block system",
+  "name": "puzzle9/laravel-user-blockable",
+  "description": "Laravel user block system",
   "keywords": [
     "laravel",
+    "user",
     "block"
   ],
   "license": "MIT",
@@ -35,14 +36,11 @@
       "Hareku\\LaravelBlockable\\Tests\\": "tests/"
     }
   },
-  "config": {
-    "preferred-install": "dist",
-    "sort-packages": true
-  },
-  "repositories": {
-    "laravel-user-blockable": {
-      "type": "vcs",
-      "url": "https://github.com/barisdemirhan/laravel-user-blockable.git"
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Hareku\\LaravelBlockable\\BlockableServiceProvider"
+      ]
     }
   }
 }
